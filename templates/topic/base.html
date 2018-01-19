@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/lib/editor/editor.css">
+    <link rel="stylesheet" href="/static/lib/webuploader/webuploader.css">
+    <script src="/static/lib/jquery-3.0.0.min.js"></script>
+    <script src="/static/lib/markdownit.js"></script>
+    <script src="/static/lib/webuploader/webuploader.withoutimage.js"></script>
+    <script src="/static/lib/editor/editor.js"></script>
+    <script src="/static/lib/editor/ext.js"></script>
+
+    <link rel="stylesheet" href="/static/css/index.css" media="all">
+    <script async="" src="/static/js/analytics.js"></script>
+    <script src="/static/js/index.js"></script>
+
+
+    {% block js_css %} {% endblock %}
+
+</head>
+<body>
+<div class='navbar'>
+    <div class='navbar-inner'>
+        <div class='container'>
+            <a class='brand' href='{{ url_for("topic.index") }}'>
+                <!--<img src="//o4j806krb.qnssl.com/public/images/cnodejs_light.svg" />-->
+                <!--<img src="/static/images/menglima.PNG" width="100px", height="100px"/>-->
+                <span>夢</span><span>里</span><span>馬</span>
+            </a>
+
+            <form id='search_form' class='navbar-search' action="/search">
+                <input type='text' id='q' name='q' class='search-query span3' value=''/>
+            </form>
+
+            <ul class='nav pull-right'>
+                <li><a href='{{ url_for("index.index") }}'>首页</a></li>
+
+                <!--<li><a href='/my/messages'>未读消息</a></li>-->
+                <li><a href='{{ url_for("mail.index") }}'>邮件</a></li>
+
+                <!--<li><a href='/getstart'>新手入门</a></li>-->
+                <li><a href='{{ url_for("index.profile") }}'>个人信息</a></li>
+                <li><a href='/api'>API</a></li>
+
+                <!--<li><a href="/about" target="">关于</a></li>-->
+
+                <li><a href='{{ url_for("settings.index") }}'>设置</a></li>
+                <li><a href='/logout' data-method="post" rel="nofollow">退出</a></li>
+                <!--<li><a href='/logout'>退出</a></li>-->
+            </ul>
+          <a class="btn btn-navbar" id="responsive-sidebar-trigger">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="main">
+    {% block sidebar %}
+    <div id="sidebar">
+        <div class="panel">
+            <div class="header">
+              <span class="col_fade">个人信息</span>
+            </div>
+            <div class="inner">
+                <div class="user_card">
+                    <div>
+                        <a class="user_avatar" href="{{ url_for('index.user', id=user.id) }}">
+                            <img src="{{ user.user_image }}" title="{{ user.username }}">
+                        </a>
+                        <span class="user_name"><a class="dark" href="{{ url_for('index.profile', id=user.id) }}">{{ user.username }}</a></span>
+
+                        <div class="board clearfix">
+                            <div class="floor">
+                                <span class="big">“
+
+                                {{ user.personalized_signature }}
+
+                            ” </span>
+                            </div>
+                        </div>
+                        <div class="space clearfix"></div>
+                        <span class="signature">
+                            “
+
+                                {{ user.personalized_signature }}
+
+                            ”
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inner">
+                <a href="{{ url_for('topic.new')}}?board_id={{ bid }}" class="create_topic_btn">
+                <!--<a href="{{ url_for('topic.new', board_id='' ) }}" class="create_topic_btn">-->
+                <!--<a href="/topic/new?board_id={{ bid }}" class="create_topic_btn">-->
+                    <span class="span-success">发布话题</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block main %}
+    {% endblock %}
+
+</div>
+
+
+<div id="footer">
+    <div id="footer_main">
+        <div class="links">
+            <a class="dark" href="https://cnodejs.org/rss">RSS</a>
+            <a class="dark" href="https://github.com/cnodejs/nodeclub/">源码地址</a>
+        </div>
+        <div class="col_fade">
+            <p>CNode 社区为国内最专业的 Node.js 开源技术社区，致力于 Node.js 的技术研究。</p>
+            <p>服务器赞助商为
+                <a href="http://www.ucloud.cn/?utm_source=zanzhu&amp;utm_campaign=cnodejs&amp;utm_medium=display&amp;utm_content=yejiao&amp;ytag=cnodejs_logo" target="_blank" class="sponsor_outlink" data-label="ucloud_bottom">
+                    <img src="/static/images/ucloud.png" title="ucloud" alt="ucloud" width="92px">
+                </a>
+                    ，存储赞助商为
+                <a href="http://www.qiniu.com/?ref=cnode" target="_blank" class="sponsor_outlink" data-label="qiniu_bottom">
+                    <img src="/static/images/qiniuyun.png" title="七牛云存储" alt="七牛云存储" width="115px">
+                </a>
+                    ，由
+                <a href="https://alinode.aliyun.com/?ref=cnode" target="_blank" class="sponsor_outlink" data-label="alinode_bottom">
+                    <img src="/static/images/alinode.png" title="alinode" alt="alinode" width="166px" height="54px">
+                </a>提供应用性能服务。
+            </p>
+            <p>新手搭建 Node.js 服务器，推荐使用无需备案的 <a href="https://www.digitalocean.com/?refcode=eba02656eeb3">DigitalOcean(https://www.digitalocean.com/)</a></p>
+        </div>
+    </div>
+</div>
+
+{% block js %} {% endblock %}
+
+</body>
+</html>

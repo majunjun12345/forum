@@ -1,0 +1,186 @@
+{% extends "topic/base.html" %}
+
+
+
+{% block title %}
+    个人信息 {{ user.username }}
+{% endblock %}
+
+
+
+{% block js_css %}
+    <link rel="stylesheet" href="/static/css/index.css" media="all">
+    <script async="" src="/static/js/analytics.js"></script>
+    <script src="/static/js/index.js"></script>
+{% endblock %}
+
+
+
+{% block main %}
+
+  <!--主内容区-->
+    <div id="content">
+
+        <!--个人信息-->
+        <div class="panel">
+            <div class="header">
+                <ul class="breadcrumb">
+                    <li><a href="/topic">主页</a><span class="divider">/</span></li>
+                    <li>个人信息</li>
+                </ul>
+            </div>
+            <div class="inner userinfo">
+                <div class="user_big_avatar">
+                    <img src="{{ user.user_image }}" title="{{ user.username }}" class="user_avatar"/>
+                </div>
+
+                <a class="dark">{{ user.username }}</a>
+
+                <div class="user_profile">
+
+                    <form method='post' action='{{ url_for(".add_img") }}' enctype='multipart/form-data'>
+                        <input type='file' name='avatar'>
+                        <!--<input type=submit value=Upload>-->
+                        <button type="submit">更换头像</button>
+                    </form>
+
+                    <ul class="unstyled">
+                        <span class="big"> 第 {{ user.id }} 位用户 </span>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!--最近创建话题-->
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">最近创建的话题</span>
+            </div>
+            {% for topic in topics %}
+            <div class="cell">
+                {% set u = topic.user() %}
+                <a class="user_avatar pull-left" href="">
+                    <img src="{{ u.user_image }}" title="{{ u.username }}">
+                </a>
+                <span class="reply_count pull-left">
+                    <span class="count_of_replies" title="回复数">
+                        {{ topic.replies() | count }}
+                    </span>
+                    <span class="count_seperator">/</span>
+                    <span class="count_of_visits" title="点击数">
+                        {{ topic.views }}
+                    </span>
+                </span>
+                <a class="last_time pull-right" href="">
+                    <img src="{{ u.user_image }}" title="avatar" class="user_small_avatar">
+                    <span class="gua-time" data-ct="{{ topic.created_time }}"></span>
+                </a>
+                <div class="topic_title_wrapper">
+                    <a class="topic_title " href="{{ url_for('topic.detail', id=topic.id) }}" >
+                        {{ topic.title }}
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+
+        <!--最近参与的话题-->
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">最近参与的话题</span>
+            </div>
+
+            {% for reply_topic in reply_topics %}
+            <div class="cell">
+                {% set u = reply_topic.user() %}
+                <a class="user_avatar pull-left" href="{{ url_for('index.user', id=u.id) }}">
+                    <img src="{{ u.user_image }}" title="{{ u.username }}">
+                </a>
+            <span class="reply_count pull-left">
+                <span class="count_of_replies" title="回复数">
+                    {{ reply_topic.replies() | count }}
+                </span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title="点击数">
+                    {{ reply_topic.views }}
+                </span>
+            </span>
+            <a class="last_time pull-right" href="{{ url_for('index.user', id=u.id) }}">
+                <img class="user_small_avatar" src="{{ reply_topic.user().user_image }}">
+                <span class="gua-time" data-ct="{{ reply_topic.created_time }}"></span>
+            </a>
+            <div class="topic_title_wrapper">
+                <a class="topic_title" href="{{ url_for('topic.detail', id=reply_topic.id) }}" title="avatar">
+                    {{ reply_topic.title }}
+                </a>
+            </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <div id="sidebar-mask"></div>
+
+{% endblock %}
+
+
+
+
+{% block js %}
+
+    <script>
+        <!--// google analytics-->
+        <!--(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
+        <!--(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
+        <!--m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
+        <!--})(window,document,'script', "https://www.google-analytics.com/analytics.js",'ga');-->
+
+        <!--ga('create', 'UA-41753901-5', 'auto');-->
+        <!--ga('send', 'pageview');-->
+
+        var log = function() {
+            console.log.apply(console, arguments)
+        }
+
+        var es = function (sel) {
+            return document.querySelectorAll(sel)
+        }
+
+        var registerTimer = function () {
+            setInterval(function () {
+                var times = es('.gua-time')
+                for (var i = 0; i < times.length; i++) {
+                    var t = times[i]
+                    var time = Number(t.dataset.ct)
+                    log('time', time)
+                    var now = Math.floor(new Date() / 1000)
+                    var delta = now - time
+                    var y = Math.floor(delta/3600/24/365)
+                    var m = Math.floor((delta - y*3600*24*365)/3600/24/30)
+                    var d = Math.floor((delta-y*3600*24*365 - m*3600*24*30)/3600/24)
+                    var h = Math.floor((delta-y*3600*24*365 - m*3600*24*30 - d*3600*24)/3600)
+                    var s = `${y} 年 ${m} 月 ${d} 天 ${h} 小时前`
+                    t.innerText = s
+                }
+            }, 1000)
+        }
+
+        var __main = function () {
+            registerTimer()
+        }
+
+        __main()
+
+    </script>
+
+{% endblock %}
+
+
+
+
+

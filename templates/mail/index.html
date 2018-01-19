@@ -1,0 +1,121 @@
+{% extends '/topic/base.html' %}
+
+
+{% block title %}
+    发送邮件
+{% endblock %}
+
+
+
+{% block main %}
+
+<div id="content">
+    <div class="panel">
+        <div class="header">
+        <ul class="breadcrumb">
+            <li><a href="{{ url_for('topic.index') }}">主页</a><span class="divider">/</span></li>
+            <li class="active">发送邮件</li>
+        </ul>
+        </div>
+
+        <div class="inner">
+            <form id="setting_form" class="form-horizontal" action="{{ url_for('.add') }}" method="post">
+
+                <div class="control-group">
+                    <label class="control-label" for="board">内容</label>
+                    <div class="controls">
+                        <textarea class="input-xlarge" id="board" name="content" size="30" placeholder="内容"></textarea>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="title">主题</label>
+                    <div class="controls">
+                        <input class="input-xlarge" id="title" name="title" size="30" type="text" placeholder="主题">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="receiver_name">收件人</label>
+                    <div class="controls">
+                        <input class="input-xlarge" id="receiver_name" name="receiver_name" size="30" type="text" placeholder="收件人">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <input class="span-primary submit_btn" data-loading-text="保存中.." value="发送" type="submit">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="header">
+            <span class="col_fade">收到的邮件</span>
+        </div>
+        <div class="inner">
+
+            {% for r in receives%}
+                <div>
+                    <div>
+                        <span>发件人：</span>
+                        <span>{{ r.sender_name }}</span>
+                    </div>
+                    <span>标题：</span>
+                    <a href = {{ url_for(".view", id = r.id) }} > {{ r.title }}</a>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="header">
+            <span class="col_fade">发送的邮件</span>
+        </div>
+
+        <div class="inner">
+
+            {% for s in sends%}
+                <div>
+                    <div>
+                        <span>收件人：</span>
+                        <span>{{ s.receiver_name }}</span>
+                    </div>
+                    <span>标题：</span>
+                    <a href = {{ url_for(".view", id = s.id) }} > {{ s.title }}</a>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+    <!--<p>发送邮件</p>-->
+    <!--<form method="post" action={{ url_for('.add') }}>-->
+        <!--<input type="text" name="content" placeholder="content">-->
+        <!--<input type="text" name="title" placeholder="title">-->
+        <!--<input type="text" name="receiver_name" placeholder="receiver_name">-->
+        <!--<button type="submit">提交邮件</button>-->
+    <!--</form>-->
+
+    <!--<p>收到邮件</p>-->
+    <!--{% for r in receives%}-->
+        <!--<div>-->
+        <!--<a href = {{ url_for(".view", id = r.id) }} > {{ r.title }}</a>-->
+        <!--</div>-->
+    <!--{% endfor %}-->
+    <!--<p>发送的邮件</p>-->
+    <!--{% for s in sends%}-->
+        <!--<div>-->
+        <!--<a href = {{ url_for(".view", id = s.id) }} > {{ s.title }}</a>-->
+        <!--</div>-->
+    <!--{% endfor %}-->
+

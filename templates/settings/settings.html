@@ -1,0 +1,125 @@
+{% extends "topic/base.html" %}
+
+
+
+{% block title %}
+    设置
+{% endblock %}
+
+
+
+{% block main %}
+
+    <div id="content">
+        <div class="panel">
+            <div class="header">
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('topic.index') }}">主页</a><span class="divider">/</span></li>
+                <li class="active">设置</li>
+            </ul>
+            </div>
+
+            <div class="inner">
+                <form id="setting_form" class="form-horizontal" action="/settings/signature" method="post">
+                    <div class="control-group">
+                        <label class="control-label" for="name">用户名</label>
+
+                        <div class="controls">
+                            <input class="input-xlarge readonly" id="name" name="name" size="30" readonly="true" value="{{ user.username }}" type="text">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="signature">个性签名</label>
+
+                        <div class="controls">
+                            <textarea class="input-xlarge" id="signature" name="signature" size="30"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <input class="span-primary submit_btn" data-loading-text="保存中.." value="保存设置" type="submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">更改密码</span>
+            </div>
+            <div class="inner">
+                <form id="change_pass_form" class="form-horizontal" action="/settings/change_passwd" method="post">
+                    <div class="control-group">
+                        <label class="control-label" for="old_pass">当前密码</label>
+
+                        <div class="controls">
+                            <input class="input-xlarge" id="old_pass" name="old_pass" size="30" type="password">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="new_pass">新密码</label>
+
+                        <div class="controls">
+                            <input class="input-xlarge" id="new_pass" name="new_pass" size="30" type="password">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <input class="span-primary submit_btn" data-loading-text="更改中.." value="更改密码" type="submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">上传头像</span>
+            </div>
+            <div class="inner">
+
+                <h3>Upload new File</h3>
+                <form method=post
+                      action='{{ url_for("index.add_img") }}'
+                      enctype=multipart/form-data>
+                    <input type=file name=avatar>
+                    <!--<input type=submit value=Upload>-->
+                    <button type="submit">Upload</button>
+                </form>
+
+            </div>
+        </div>
+
+        <!--<div class="panel">-->
+            <!--<div class="header">-->
+                <!--<span class="col_fade">Access Token</span>-->
+            <!--</div>-->
+            <!--<div class="inner">-->
+                <!--<div>-->
+                    <!--<span>字符串：</span>-->
+                    <!--2bb33c10-4488-46c5-9e77-bb8e3b826e7a-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>二维码：</span>-->
+                    <!--<span id="access-token-qrcode" title="2bb33c10-4488-46c5-9e77-bb8e3b826e7a"><canvas width="200" height="200" style="display: none;"></canvas><img alt="Scan me!" style="display: block;" src="data:image/png;base64,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"></span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+{% endblock %}
+
+
+
+{% block js %}
+
+    <script>
+        (function () {
+            var editor = new Editor();
+            editor.render($('.editor')[0]);
+        })();
+
+    </script>
+
+{% endblock %}

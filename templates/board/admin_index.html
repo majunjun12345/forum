@@ -1,0 +1,47 @@
+{% extends '/topic/base.html' %}
+
+
+{% block title %}board admin{% endblock %}
+{% block main %}
+
+
+
+<div id="content">
+    <div class="panel">
+        <div class="header">
+        <ul class="breadcrumb">
+            <li><a href="/topic">主页</a><span class="divider">/</span></li>
+            <li class="active">添加版快</li>
+        </ul>
+        </div>
+
+        <div class="inner">
+            <form id="setting_form" class="form-horizontal" action='{{ url_for("board.add") }}' method="post">
+                <!--<div class="control-group">-->
+                    <!--<label class="control-label" for="name">用户名</label>-->
+
+                    <!--<div class="controls">-->
+                        <!--<input class="input-xlarge readonly" id="name" name="name" size="30" readonly="true" value="{{ user.username }}" type="text">-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div class="control-group">
+                    <label class="control-label" for="board">版块名称</label>
+                    <div class="controls">
+                        <textarea class="input-xlarge" id="board" name="title"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <input class="span-primary submit_btn" data-loading-text="保存中.." value="提交" type="submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    <!--<form action="/board/add" method="post">-->
+        <!--<input name="title">-->
+        <!--<br>-->
+        <!--<button>add</button>-->
+    <!--</form>-->
+{% endblock %}

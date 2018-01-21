@@ -11,13 +11,13 @@ application = app.configured_app()
 
 """
 建立一个软连接
-ln -s /var/www/bbs/web21.conf /etc/supervisor/conf.d/web21.conf
+ln -s /var/www/bbs/forum.conf /etc/supervisor/conf.d/forum.conf
 
-ln -s /var/www/bbs/web21.nginx /etc/nginx/sites-enabled/bbs
+ln -s /var/www/bbs/forum.nginx /etc/nginx/sites-enabled/bbs
 
 
 
-➜  ~ cat /etc/supervisor/conf.d/web21.conf
+➜  ~ cat /etc/supervisor/conf.d/forum.conf
 
 [program:bbs]
 command=/usr/local/bin/gunicorn wsgi -c gunicorn.config.py

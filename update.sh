@@ -1,6 +1,5 @@
 # 代码更新
-git pull git@bitbucket.org:majunjun12345/web21.git
-
+git pull git@github.com:majunjun12345/forum.git
 
 # 重启服务器
 service supervisor restart

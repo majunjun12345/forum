@@ -81,10 +81,12 @@ class User(Model):
             topic = models.topic.Topic.one(id=id)
             replied_topics.append(topic)
         # print('replied_topics:', replied_topics)
-        if None in replied_topics:
+        # if None in replied_topics:
             # remove() 方法没有返回值
             # replied_topics = replied_topics.remove(None)
             # 所以 replied_topics 为 None
-            replied_topics.remove(None)
-        # print('replied_topics:no None',replied_topics)
+            # replied_topics.remove(None)
+        replied_topics = list(set(replied_topics))
+        replied_topics.remove(None)
+        print('replied_topics:no None',replied_topics)
         return sorted(replied_topics, key= lambda topic: topic.created_time, reverse=True)

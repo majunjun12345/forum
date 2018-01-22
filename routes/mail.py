@@ -38,7 +38,6 @@ def index():
 
 
 @main.route("/view/<string:id>")
-@login_required
 def view(id):
     mail = Mail.one(id=id)
     if current_user().username in [mail.receiver_name, mail.sender_name]:

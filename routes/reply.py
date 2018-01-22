@@ -41,6 +41,7 @@ def send_mails(sender, receivers, content):
 
 
 @main.route("/add", methods=["POST"])
+@login_required
 def add():
     log('reply add')
     form = request.form

@@ -15,12 +15,14 @@ main = Blueprint('board', __name__)
 
 
 @main.route("/admin")
+@login_required
 def index():
     u = current_user()
     return render_template('board/admin_index.html', user=u)
 
 
 @main.route("/add", methods=["POST"])
+@login_required
 def add():
     form = request.form
     u = current_user()

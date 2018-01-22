@@ -15,6 +15,7 @@ from models.user import User
 
 
 @main.route('/', methods=['GET'])
+@login_required
 def index():
     u = current_user()
     # token = new_csrf_token()
@@ -22,6 +23,7 @@ def index():
 
 
 @main.route('/signature', methods=['POST'])
+@login_required
 # @csrf_required
 def signature():
     u = current_user()
@@ -33,6 +35,7 @@ def signature():
 
 
 @main.route('/change_passwd', methods=['POST'])
+@login_required
 def change_passwd():
     u = current_user()
     # password = request.form['old_pass']

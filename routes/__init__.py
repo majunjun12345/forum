@@ -1,17 +1,45 @@
 import uuid
 from functools import wraps
 
-from flask import session, request, abort
+from flask import (
+    session,
+    request,
+    abort,
+    redirect,
+    url_for,
+)
 # import redis
 
 from models.user import User
 from utils import log
 
 
+# def current_user():
+#     uid = session['user_id']
+#     u = User.one(id=uid)
+#     return u
+
+
 def current_user():
-    uid = session['user_id']
-    u = User.one(id=uid)
-    return u
+    uid = session.get('user_id', '')
+    if uid:
+        u = User.one(id=uid)
+        return u
+    else:
+        return None
+
+
+def login_required(route_function):
+    @wraps(route_function)
+    def f():
+        u = current_user()
+        if u is None:
+            log('非登录用户')
+            return redirect(url_for('topic.index'))
+        else:
+            return route_function()
+
+    return f
 
 
 csrf_tokens = dict()

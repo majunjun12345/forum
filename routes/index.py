@@ -14,7 +14,7 @@ import os
 import uuid
 # from flask_login import logout_user
 
-from routes import current_user
+from routes import *
 # from utils import log
 
 main = Blueprint('index', __name__)
@@ -47,14 +47,14 @@ def register():
 def login():
     form = request.form
     u = User.validate_login(form)
-    print('login u', u)
+    # print('login u', u)
     if u is None:
         # 转到 topic.index 页面
         return redirect(url_for('.index'))
     else:
         # session 中写入 user_id
         session['user_id'] = u.id
-        print('login', session)
+        # print('login', session)
         # 设置 cookie 有效期为 永久
         session.permanent = True
         return redirect(url_for('topic.index'))
@@ -67,10 +67,12 @@ def login():
 
 
 @main.route('/profile')
+# @login_required
 def profile():
     u = current_user()
     topicss = User.topics(u.id)
     # print('u.id:', u.id)
+    # print('u.img:', u.user_image)
     reply_topics = User.replied_topics(u.id)
     if u is None:
         return redirect(url_for('.index'))
@@ -97,11 +99,11 @@ def valid_suffix(suffix):
 
 @main.route('/image/add', methods=["POST"])
 def add_img():
-    print('majun add_img()')
+    # print('majun add_img()')
     # file 是一个上传的文件对象
     file = request.files['avatar']
     suffix = file.filename.split('.')[-1]
-    print('suffix:', suffix)
+    # print('suffix:', suffix)
     if valid_suffix(suffix):
         # 上传的文件一定要用 secure_filename 函数过滤一下名字
         # ../../../../../../../root/.ssh/authorized_keys

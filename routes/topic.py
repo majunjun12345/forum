@@ -5,7 +5,7 @@ from flask import (
     url_for,
     Blueprint,
 )
-
+from utils import log
 from routes import *
 # import json
 
@@ -16,8 +16,10 @@ main = Blueprint('topic', __name__)
 
 
 @main.route("/")
+# @login_required
 def index():
     u = current_user()
+    # log('用户名：', u.username)
     board_id = request.args.get('board_id', 'all')
     if board_id == 'all':
         ms = Topic.all()
@@ -26,22 +28,6 @@ def index():
         ms = Topic.all(board_id=board_id)
         ms = sorted(ms, key=lambda topic: topic.created_time, reverse=True)
 
-    # if r.exists(board_id):
-    #     log('hit redis')
-    #     json_string = r.get(board_id)
-    #     json_list = json.loads(json_string)
-    # else:
-    #     print('not hit redis')
-    #     json_list = []
-    #     for m in ms:
-    #         j = m.json()
-    #         j['replies'] = m.replies()
-    #         j['user_image'] = m.user().user_image
-    #         json_list.append(j)
-    #     json_string = json.dumps(json_list)
-    #     r.set(board_id, json_string)
-    # ms = json_list
-
     # token = new_csrf_token()
     bs = Board.all()
     # return render_template("topic/index.html", ms=ms, token=token, bs=bs, bid=board_id, user=u)
@@ -49,6 +35,7 @@ def index():
 
 
 @main.route('/<string:id>')
+# @login_required
 def detail(id):
     m = Topic.find(id=id)
     u = current_user()
@@ -59,7 +46,7 @@ def detail(id):
 
 
 @main.route("/add", methods=["POST"])
-# @login_required
+@login_required
 # @csrf_required
 def add():
     form = request.form
@@ -69,6 +56,7 @@ def add():
 
 
 @main.route("/delete")
+@login_required
 # @csrf_required
 def delete():
     id = request.args.get('id')
@@ -79,6 +67,7 @@ def delete():
 
 
 @main.route("/new")
+@login_required
 def new():
     board_id = request.args.get('board_id')
     # token = new_csrf_token()

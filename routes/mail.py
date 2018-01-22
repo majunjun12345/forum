@@ -13,6 +13,7 @@ main = Blueprint('mail', __name__)
 
 
 @main.route("/add", methods=["POST"])
+@login_required
 def add():
     form = request.form
     u = current_user()
@@ -22,6 +23,7 @@ def add():
 
 
 @main.route("/", methods=["GET"])
+@login_required
 def index():
     u = current_user()
     send_mail = Mail.all(sender_name=u.username)
@@ -36,6 +38,7 @@ def index():
 
 
 @main.route("/view/<string:id>")
+@login_required
 def view(id):
     mail = Mail.one(id=id)
     if current_user().username in [mail.receiver_name, mail.sender_name]:

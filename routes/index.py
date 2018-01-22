@@ -70,8 +70,6 @@ def login():
 @login_required
 def profile():
     u = current_user()
-    topicss = User.topics(u.id)
-    reply_topics = User.replied_topics(u.id)
     if u is None:
         return redirect(url_for('.index'))
     else:

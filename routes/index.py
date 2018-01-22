@@ -71,12 +71,12 @@ def login():
 def profile():
     u = current_user()
     topicss = User.topics(u.id)
-    # print('u.id:', u.id)
-    # print('u.img:', u.user_image)
     reply_topics = User.replied_topics(u.id)
     if u is None:
         return redirect(url_for('.index'))
     else:
+        topicss = User.topics(u.id)
+        reply_topics = User.replied_topics(u.id)
         return render_template('profile.html', user=u, topics=topicss, reply_topics=reply_topics)
 
 

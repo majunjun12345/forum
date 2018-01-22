@@ -67,7 +67,7 @@ def login():
 
 
 @main.route('/profile')
-# @login_required
+@login_required
 def profile():
     u = current_user()
     topicss = User.topics(u.id)

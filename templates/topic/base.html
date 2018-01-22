@@ -74,8 +74,8 @@
             <div class="inner">
                 <div class="user_card">
                     <div>
-                        <a class="user_avatar" href="{{ url_for('index.user', id=user.id) }}">
-                            <img src="{{ user.user_image }}" title="{{ user.username }}">
+                        <a class="user_avatar" href="{{ url_for('index.profile') }}">
+                            <img src="{{ user.user_image }}" title="{{ user.username }}" alt="游客，您好, 请登录!">
                         </a>
                         <span class="user_name"><a class="dark" href="{{ url_for('index.profile', id=user.id) }}">{{ user.username }}</a></span>
 

@@ -35,11 +35,11 @@
                                     <a class="user_avatar pull-left">
                                         <img src="{{ t.user().user_image }}" title="{{ t.user().username }}"/>
                                     </a>
-
+                                    &emsp;&emsp;
                                     <a class="topic_title" href="{{ url_for('topic.detail', id=t.id) }}">
                                         {{ t.title }}
-                                    </a>
-                                    <span>{{ t.replies() | count }} / {{ t.views }}</span>
+                                    </a>&emsp;
+                                    <span>({{ t.replies() | count }} / {{ t.views }})</span>
                                     <!--<a class="topic_title" href="{{ url_for('topic.delete', id=t.id, token=token) }}">-->
                                     <a class="topic_title" href="{{ url_for('topic.delete', id=t.id) }}">
                                         删除

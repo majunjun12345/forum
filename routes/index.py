@@ -30,34 +30,40 @@ main = Blueprint('index', __name__)
 """
 
 
-@main.route("/")
-def index():
-    return render_template("index.html")
+# @main.route("/")
+# def index():
+#     return render_template("register.html")
 
 
-@main.route("/register", methods=['POST'])
+@main.route("/register", methods=['POST', 'GET'])
 def register():
-    form = request.form
-    # 用类函数来判断
-    u = User.register(form)
-    return redirect(url_for('.index'))
-
-
-@main.route("/login", methods=['POST'])
-def login():
-    form = request.form
-    u = User.validate_login(form)
-    # print('login u', u)
-    if u is None:
-        # 转到 topic.index 页面
-        return redirect(url_for('.index'))
+    if request.method == 'GET':
+        return render_template('register.html')
     else:
-        # session 中写入 user_id
-        session['user_id'] = u.id
-        # print('login', session)
-        # 设置 cookie 有效期为 永久
-        session.permanent = True
-        return redirect(url_for('topic.index'))
+        form = request.form
+        # 用类函数来判断
+        u = User.register(form)
+        return redirect(url_for('index.login'))
+
+
+@main.route("/login", methods=['POST', 'GET'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    else:
+        form = request.form
+        u = User.validate_login(form)
+        # print('login u', u)
+        if u is None:
+            # 转到 topic.index 页面
+            return redirect(url_for('topic.index'))
+        else:
+            # session 中写入 user_id
+            session['user_id'] = u.id
+            # print('login', session)
+            # 设置 cookie 有效期为 永久
+            session.permanent = True
+            return redirect(url_for('topic.index'))
 
 
 # @main.route('/logout', methods=['GET'])

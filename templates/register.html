@@ -45,12 +45,12 @@
             <div class="header">
             <ul class="breadcrumb">
                 <li><a href="{{ url_for('topic.index') }}">主页</a><span class="divider">/</span></li>
-                <li class="active">登录</li>
+                <li class="active">注册</li>
             </ul>
             </div>
 
             <div class="inner">
-                <form id="setting_form" class="form-horizontal" action="{{ url_for('index.login') }}" method="post">
+                <form id="setting_form" class="form-horizontal" action="{{ url_for('index.register') }}" method="post">
                     <div class="control-group">
                         <label class="control-label" for="name">用户名</label>
 
@@ -60,15 +60,14 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="signature">登录</label>
-
+                        <label class="control-label " for="signature">密码</label>
                         <div class="controls">
                             <input class="input-xlarge" id="signature" name="password" size="30" type="password">
                         </div>
                     </div>
 
                     <div class="form-actions">
-                        <input class="span-primary submit_btn" data-loading-text="保存中.." value="登录" type="submit">
+                        <input class="span-primary submit_btn" data-loading-text="保存中.." value="注册" type="submit">
                     </div>
                 </form>
             </div>

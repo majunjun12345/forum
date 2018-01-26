@@ -38,7 +38,7 @@
                                         {{ t.title }}
                                     </a>
                                     <span class="pull-right">({{ t.replies() | count }} / {{ t.views }})</span>
-                                    <!--<a class="topic_title" href="{{ url_for('topic.delete', id=t.id, token=token) }}">-->
+                                    <!--<a class="topic_title pull-right" href="{{ url_for('topic.delete', id=t.id, token=token) }}">-->
                                     <a class="topic_title pull-right" href="{{ url_for('topic.delete', id=t.id) }}">
                                         删除
                                     </a>

@@ -26,6 +26,8 @@ def current_user():
         u = User.one(id=uid)
         return u
     else:
+        # u = User()
+        # print('u majun:', u.username)
         return None
 
 
@@ -57,6 +59,8 @@ def csrf_required(f):
         # if r.exists(token) and r.get(token) == u.id:
         # r.delete(token)
         if token in csrf_tokens:
+            # 这个操作能够删除键，并返回键对应的值
+            # 访问每个权限页面，它的 token 都不一样，所以，边创建边删除
             uid = csrf_tokens.pop(token)
             if uid == u.id:
                 return f(*args, **kwargs)

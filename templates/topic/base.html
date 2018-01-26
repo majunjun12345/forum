@@ -74,11 +74,11 @@
             <div class="inner">
                 <div class="user_card">
                     <div>
+                    {% if user %}
                         <a class="user_avatar" href="{{ url_for('index.profile') }}">
                             <img src="{{ user.user_image }}" title="{{ user.username }}" alt="游客，您好, 请登录!">
                         </a>
                         <span class="user_name"><a class="dark" href="{{ url_for('index.profile', id=user.id) }}">{{ user.username }}</a></span>
-
                         <div class="board clearfix">
                             <div class="floor">
                                 <span class="big">“
@@ -96,6 +96,12 @@
 
                             ”
                         </span>
+                    {% else %}
+                        游客，您好，请
+                            <a href="{{ url_for('index.login') }}">登录</a>
+                        / <a href="{{ url_for('index.login') }}">注册</a>
+                        ！
+                    {% endif %}
                     </div>
                 </div>
             </div>

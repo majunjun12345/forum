@@ -7,6 +7,7 @@ from flask import (
     Blueprint,
     make_response,
     send_from_directory,
+    session,
 )
 # from werkzeug.utils import secure_filename
 from models.user import User
@@ -66,10 +67,11 @@ def login():
             return redirect(url_for('topic.index'))
 
 
-# @main.route('/logout', methods=['GET'])
-# def logout():
-#     logout_user()
-#     return redirect(url_for('.index'))
+@main.route('/logout', methods=['GET'])
+def logout():
+    u = current_user()
+    session.pop('user_id', None)
+    return redirect(url_for('index.login'))
 
 
 @main.route('/profile')

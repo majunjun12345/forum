@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div>
-
+        {% if user %}
             <div class="inner">
                 <a href="{{ url_for('topic.new')}}?board_id={{ bid }}" class="create_topic_btn">
                 <!--<a href="{{ url_for('topic.new', board_id='' ) }}" class="create_topic_btn">-->
@@ -116,6 +116,8 @@
                     <span class="span-success">发布话题</span>
                 </a>
             </div>
+        {% else %}
+        {% endif %}
 
         </div>
     </div>

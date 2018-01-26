@@ -60,18 +60,18 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="signature">登录</label>
-
+                        <label class="control-label" for="password">密码</label>
                         <div class="controls">
-                            <input class="input-xlarge" id="signature" name="password" size="30" type="password" required>
+                            <input class="input-xlarge" id="password" name="password" size="30" type="password" required>
                         </div>
                     </div>
 
                     <div class="form-actions">
                         <input class="span-primary submit_btn" data-loading-text="保存中.." value="登录" type="submit">
+                        <span><a href="{{ url_for('index.register') }}"> / 注册</a></span>
                     </div>
                 </form>
             </div>
         </div>
-    </div>>
+    </div>
 {% endblock %}

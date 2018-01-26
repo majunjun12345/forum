@@ -30,17 +30,23 @@
                     <div class="topic_list">
                         {% for t in ms %}
                             <div class="cell">
+                                <a class="user_avatar pull-left">
+                                    <img src="{{ t.user().user_image }}" title="{{ t.user().username }}"/>
+                                </a>
+                                <span class="reply_count pull-left">
+                                    <span class="count_of_replies" title="回复数">{{ t.replies() | count }}</span>
+                                    <span class="count_seperator">/</span>
+                                    <span class="count_of_visits" title="点击数">{{ t.views }}</span>
+                                </span>
+
                                 <div class="topic_title_wrapper">
-                                    <a class="user_avatar pull-left">
-                                        <img src="{{ t.user().user_image }}" title="{{ t.user().username }}"/>
-                                    </a>
-                                    <a class="topic_title pull-left" href="{{ url_for('topic.detail', id=t.id) }}">
-                                        {{ t.title }}
-                                    </a>
-                                    <span class="pull-right">({{ t.replies() | count }} / {{ t.views }})</span>
-                                    <!--<a class="topic_title pull-right" href="{{ url_for('topic.delete', id=t.id, token=token) }}">-->
-                                    <a class="topic_title pull-right" href="{{ url_for('topic.delete', id=t.id) }}">
-                                        删除
+                                    <span class="put_top">{{ t.board().title }}</span>
+                                <!--<a class="topic_title pull-right" href="{{ url_for('topic.delete', id=t.id, token=token) }}">-->
+                                <!--<a class="topic_title pull-right" href="{{ url_for('topic.delete', id=t.id) }}">-->
+                                    <!--删除-->
+                                <!--</a>-->
+                                    <a class="topic_title" href="{{ url_for('topic.detail', id=t.id) }}">
+                                    {{ t.title }}
                                     </a>
 
                                 </div>

@@ -37,7 +37,7 @@ def login_required(route_function):
         u = current_user()
         if u is None:
             log('非登录用户')
-            return redirect(url_for('topic.index'))
+            return redirect(url_for('index.login'))
         else:
             return route_function()
 

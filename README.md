@@ -7,3 +7,6 @@
 
 # 发表文章、添加评论（都支持markdown及语法高亮）
 ![img](https://github.com/majunjun12345/forum/blob/master/%E5%8F%91%E5%B8%83%E8%AF%9D%E9%A2%98%E3%80%81%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA.gif)
+
+# 邮件收发功能
+![img](https://github.com/majunjun12345/forum/blob/master/%E9%82%AE%E4%BB%B6%E6%94%B6%E5%8F%91%E5%8A%9F%E8%83%BD.gif)

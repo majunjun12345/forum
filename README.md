@@ -16,3 +16,5 @@
 
 # 6.个人信息（更换头像、查看发布的话题和评论的话题）
 ![img](https://github.com/majunjun12345/forum/blob/master/%E9%A1%B5%E9%9D%A2%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D/%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF.gif)
+
+# 7.评论区的 @ 功能

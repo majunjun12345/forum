@@ -7,7 +7,6 @@ from flask import (
     Blueprint,
     make_response,
     send_from_directory,
-    session,
 )
 # from werkzeug.utils import secure_filename
 from models.user import User
@@ -57,7 +56,7 @@ def login():
         # print('login u', u)
         if u is None:
             # 转到 topic.index 页面
-            return redirect(url_for('topic.index'))
+            return redirect(url_for('.register'))
         else:
             # session 中写入 user_id
             session['user_id'] = u.id

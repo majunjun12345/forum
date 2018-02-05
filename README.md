@@ -1,31 +1,26 @@
 论坛功能
 --------
-
-1. 上传头像
-2. 私信和AT
-3. 导航栏和 jinja2 模板继承
+1. 登陆注册
+2. 个人信息完善
+3. 上传头像
+4. 私信和AT
+5. 页眉页脚和侧边栏
 
 
 
 上传头像
 --------
-1. form
+1. form 表单实现
 2. post方法 对应一个路由 保存静态文件的功能
     1. 文件后缀要做过滤 img png gif
-    2. 文件名也要小心
-    ../../home/akirayu/.bash_rc -> xxxxxx
-    ~/.bash_rc
-    ~/.bash_profile
-3. get方法，本地的静态文件转发给用户
+    2. 文件名更改为随机字符串（防止攻击）
 
 
 发私信 数据结构
 --------------
-1. id
+1. username
 2. content
 3. title
-4. sender_id # 这个不应该是从表单里面拿的，hidden，伪造成任何人
-5. receiver_id
 
 
 切换到 mongo
@@ -33,7 +28,7 @@
 
 1. 增删改查
 2. id
-3. deleted
+3. deleted 
 
 部署
 ----
